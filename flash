@@ -167,6 +167,10 @@ table th {
 
 
 
+
+
+
+
 //index.php
 
 <!DOCTYPE html>
@@ -176,24 +180,16 @@ table th {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Final Year Project Evaluation Form</title>
     <link rel="stylesheet" href="styles.css">
-    <script>
-        // Function to display popup message on form submission
-        function showPopup(event) {
-            event.preventDefault(); // Prevent form from submitting immediately
-            if (confirm("Are you sure you want to submit the form?")) {
-                document.getElementById('evaluationForm').submit(); // Submit form if confirmed
-            }
-        }
-    </script>
 </head>
 <body>
     <div class="container">
         <header>
+            <!--image here-->
             <img src="logo.png" alt="Politeknik Malaysia Seberang Perai">
             <h1>Final Year Project Evaluation Form</h1>
         </header>
         <!-- Form to capture project evaluation details -->
-        <form id="evaluationForm" action="result.php" method="POST" onsubmit="showPopup(event)">
+        <form action="result.php" method="POST">
             <!-- Input for Project ID -->
             <div class="form-group">
                 <label for="project_id">Project ID:</label>
@@ -282,7 +278,7 @@ table th {
                         </td>
                     </tr>
                     <!-- Evaluation for Presentation -->
-                    <tr>
+                    <tr> 
                         <td>Presentation</td>
                         <td>15%</td>
                         <td>
@@ -305,8 +301,48 @@ table th {
                             <input type="radio" name="video" value="5" required> 5
                         </td>
                     </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                    </table>
+
+                    <table>
+                    <tr>
+                        <td><label for="text_input">Text Input:</label></td>
+                        <td><input type="text" id="text_input" name="text_input"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="radio_button">Radio Button:</label></td>
+                        <td>
+                            <input type="radio" id="radio_button_1" name="radio_button" value="option1">
+                            <label for="radio_button_1">Option 1</label>
+                            <input type="radio" id="radio_button_2" name="radio_button" value="option2">
+                            <label for="radio_button_2">Option 2</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="checkbox">Checkbox:</label></td>
+                        <td>
+                            <input type="checkbox" id="checkbox_1" name="checkbox_1" value="checkbox1">
+                            <label for="checkbox_1">Checkbox 1</label>
+                            <input type="checkbox" id="checkbox_2" name="checkbox_2" value="checkbox2">
+                            <label for="checkbox_2">Checkbox 2</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="dropdown">Dropdown List:</label></td>
+                        <td>
+                            <select id="dropdown" name="dropdown">
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                            <option value="option3">Option 3</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="date_input">Date:</label></td>
+                        <td><input type="date" id="date_input" name="date_input"></td>
+                    </tr>
+                </table>
+                
             <!-- Submit button for the form -->
             <div class="form-buttons">
                 <button type="submit">Submit</button>
