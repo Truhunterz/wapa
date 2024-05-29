@@ -52,297 +52,267 @@
 
 
 
-//one
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//style.css
+/* Basic styling for the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for the form */
+.container {
+    width: 60%;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the header */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header img {
+    max-width: 100px;
+}
+
+header h1 {
+    color: #660066;
+}
+
+/* Styling for form groups */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+/* Styling for the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th,
+table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f9f9f9;
+}
+
+/* Additional styling for the result section's back button */
+.form-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.form-buttons button {
+    background-color: #660066;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+
+/* Styling for the result section */
+.result {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.result p {
+    margin: 10px 0;
+}
+
+
+
+
+
+//index.php
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PSP PC-Shop Buying Form</title>
-
-// style
-<style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-  background-color: #f2f2f2;
-}
-
-header {
-  text-align: center;
-  background-color: #ff69b4;
-  color: #fff;
-  padding: 20px 0;
-  margin-bottom: 20px;
-}
-
-form {
-  max-width: 100%;
-  margin: 0 auto;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="email"],
-textarea {
-  width: calc(100% - 12px);
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-input[type="number"] {
-  width: 80px;
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-input[type="radio"],
-input[type="checkbox"] {
-  margin-right: 5px;
-}
-
-button[type="submit"],
-button[type="reset"],
-button[id="btnback"]{
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button[type="submit"]:hover,
-button[type="reset"]:hover,
-button[id="btnback"]:hover {
-  background-color: #45a049;
-}
-
-p {
-  font-size: 0.9em;
-  color: #888;
-}
-
-table, th, td {
-  border: 1px solid rgb(198, 198, 198);
-  border-collapse: collapse;
-}
-
-td{
-  height: 50px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-
-.product-image {
-  width: 100px;
-  height: auto;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Year Project Evaluation Form</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // Function to display popup message on form submission
+        function showPopup(event) {
+            event.preventDefault(); // Prevent form from submitting immediately
+            if (confirm("Are you sure you want to submit the form?")) {
+                document.getElementById('evaluationForm').submit(); // Submit form if confirmed
+            }
+        }
+    </script>
 </head>
 <body>
-
-<header>
-  <h1>Welcome to PSP PC-SHOP</h1>
-</header>
-
-
-//declare calculation
-
-<?php
-// Retrieve customer details, quantity and payment method. Example as follow:
-$fullname = $_POST["fullname"];
-$email = $_POST["email"];
-$phone = $_POST["phone"];
-$address = $_POST["address"];
-//change string input date to time
-$date = strtotime($_POST["date"]);
-
-//a simple way to handle a default value if the checkbox is nott checked. Example as follow:
-$item1 = $_POST["item1"] ?? 0;
-$item2 = $_POST["item2"] ?? 0;
-$item3 = $_POST["item3"] ?? 0;
-$item4 = $_POST["item4"] ?? 0;
-$item5 = $_POST["item5"] ?? 0;
-$item6 = $_POST["item6"] ?? 0;
-
-// Calculate sales for each product based on inclusion status. Example as follow:
-$sales1 = $item1 ? $_POST["quantity1"] * 3999 : 0;
-$sales2 = $item2 ? $_POST["quantity2"] * 2599 : 0;
-$sales3 = $item3 ? $_POST["quantity3"] * 239 : 0;
-$sales4 = $item4 ? $_POST["quantity4"] * 25.99 : 0;
-$sales5 = $item5 ? $_POST["quantity5"] * 124 : 0;
-$sales6 = $item6 ? $_POST["quantity6"] * 339 : 0;
-
-//Calculate total sales
-$totalsales = $sales1 + $sales2 + $sales3 + $sales4 + $sales5 + $sales6;
-
-//if  else condition to give 5% discount when total sales above RM2000
-if ($totalsales > 2000){
-  $discount = $totalsales * 0.05;
-}
-else {
-  $discount = 0;
-}
-
-//Calculate 6% tax that will charge to amount total sales and after discount
-$tax = ($totalsales - $discount) * 0.06;
-
-//calculate amount to be paid
-$amount = $totalsales - $discount + $tax;
-?>
-
-
-//form table
-<form id="myForm" method="post">
-  <div>
-    <table width="95%" border="1" align="center" style="background-color: #f7f7f7;">
-        <tr>
-            <th width="10%" align="left">Full Name: </th>
-            <td><input type="text" name="fullname" style="width: 550px;" value="<?php echo $fullname; ?>" readonly></td>
-        </tr>
-        <tr>
-            <th  align="left">Email: </th>
-            <td><input type="email" name="email" style="width: 550px;" value="<?php echo $email; ?>" readonly></td>
-        </tr>
-        <tr>
-            <th  align="left">Phone Number: </th>
-            <td><input type="text" name="phone" style="width: 550px;" value="<?php echo $phone; ?>" readonly></td>
-        </tr>
-        <tr>
-            <th  align="left">Address: </th>
-            <td><input type="textarea" name="address" style="width: 550px; height: 150px;" value="<?php echo $address; ?>" readonly></td>
-        </tr>
-        <tr>
-            <th  align="left">Date: </th>
-            <td><input type="text" name="date" style="width: 150px;" value="<?php echo date('d-m-Y', $date); ?>" readonly></td>
-        </tr>
-    </table>
-  </div>
-        
-  <div>
-    <table width="95%" border="1" align="center" style="background-color: #f7f7f7;">
-      <tr style="background-color: #ff69b4; color: white;">
-        <th colspan="4" height="50px">Product Details</th>
-
-    </tr>
-        <tr style="background-color: #ff69b4; color: white;">
-            <th>Item Name</th>
-            <th>Unit Price</th>
-            <th>Quantity</th>
-            <th>Item Total</th>
-        </tr>
-        <tr>
-            <td>HP Pavilion x360 14 inch 2-in-1 Laptop 14-ek1039TU Silver </td>
-            <td align="center">RM 3,999.00</td>
-            <td align="center"><?php echo $_POST["quantity1"]; ?></td>
-            <td align="center"> RM <?php echo number_format($sales1, 2); ?></td>
-        </tr>
-        <tr>
-            <td>HP 24-inc All-in-One Desktop PC</td>
-            <td align="center">RM 2,599.00</td>
-            <td align="center"><?php echo $_POST["quantity2"]; ?></td>
-            <td align="center">RM <?php echo number_format($sales2, 2); ?></td>
-        </tr>
-        <tr>
-            <td>Western Digital My Passport 1TB USB 3.0 External Hard Drives New Design</td>
-            <td align="center">RM 239.00</td>
-            <td align="center"><?php echo $_POST["quantity3"]; ?></td>
-            <td align="center">RM <?php echo number_format($sales3, 2); ?></td>
-        </tr>
-        <tr>
-            <td>2.4GHz Mini Wireless Optical Game Mouse / USB Receiver</td>
-            <td align="center">RM 25.99 </td>
-            <td align="center"><?php echo $_POST["quantity4"]; ?></td>
-            <td align="center">RM <?php echo number_format($sales4, 2); ?></td>
-        </tr>
-        <tr>
-            <td>Anti Thief Backpack Business Fits for 15.6 inch Laptop USB Charging Water Repellent</td>
-            <td align="center">RM 124.00</td>
-            <td align="center"><?php echo $_POST["quantity5"]; ?></td>
-            <td align="center">RM <?php echo number_format($sales5, 2); ?></td>
-        </tr>
-        <tr>
-            <td>Razer BlackShark V2 Multi-Platform Wired E-Sports Headset</td>
-            <td align="center">RM 339.00</td>
-            <td align="center"><?php echo $_POST["quantity6"]; ?></td>
-            <td align="center">RM <?php echo number_format($sales6, 2); ?></td>
-        </tr>
-    </table>
-  </div>
-
-
-  <table width="95%" border="1" align="center" style="background-color: #f7f7f7;">
-      <tr style="background-color: #ff69b4; color: white;">
-        <th colspan="2" height="50px">Bill</th>
-      </tr>
-      <tr>
-        <td>Payment Method</td>
-        <td align="center"><?php echo $_POST["paymentMethod"]; ?></td>
-      </tr>
-      <tr>
-        <td>Total Sales</td>
-        <td align="center">RM <?php echo number_format($totalsales, 2); ?></td>
-      </tr>
-      <tr>
-        <td>Discount (5% if total sales above RM 2000)</td>
-        <td align="center">RM <?php echo number_format($discount, 2); ?></td>
-      </tr>
-      <tr>
-        <td>6% SST Charged</td>
-        <td align="center">RM <?php echo number_format($tax, 2); ?></td>
-      </tr>
-      <tr>
-        <td align="right">TOTAL</td>
-        <td align="center" style="background-color: #ff69b4;">RM <?php echo number_format($amount, 2); ?></td>
-      </tr>
-  </table>
-
-  <br>
-
-  <div class="btnback" align="center">
-    <input type="button" onclick="history.back()" value="Back">
-  </div>
-</form>
-
-<script>
-function toggleQuantity(quantityId, checkbox) {
-  var quantityInput = document.getElementsByName(quantityId)[0];
-  var includeHiddenInput = document.getElementsByName('include' + quantityId)[0];
-
-  if (!checkbox.checked) {
-    quantityInput.value = 0;
-    includeHiddenInput.value = 0;
-  } else {
-    quantityInput.value = 1;
-    includeHiddenInput.value = 1;
-  }
-
-  quantityInput.disabled = !checkbox.checked;
-  if (checkbox.checked) {
-    quantityInput.removeAttribute('required');
-  } else {
-    quantityInput.setAttribute('required', 'required');
-  }
-}
-</script>
-
+    <div class="container">
+        <header>
+            <img src="logo.png" alt="Politeknik Malaysia Seberang Perai">
+            <h1>Final Year Project Evaluation Form</h1>
+        </header>
+        <!-- Form to capture project evaluation details -->
+        <form id="evaluationForm" action="result.php" method="POST" onsubmit="showPopup(event)">
+            <!-- Input for Project ID -->
+            <div class="form-group">
+                <label for="project_id">Project ID:</label>
+                <input type="text" id="project_id" name="project_id" required>
+            </div>
+            <!-- Input for Project Title -->
+            <div class="form-group">
+                <label for="project_title">Project Title:</label>
+                <input type="text" id="project_title" name="project_title" required>
+            </div>
+            <!-- Dropdown to select Department -->
+            <div class="form-group">
+                <label for="department">Department:</label>
+                <select id="department" name="department" required>
+                    <option value="JKM">JKM</option>
+                    <option value="JKE">JKE</option>
+                    <option value="JKA">JKA</option>
+                    <option value="JTMK">JTMK</option>
+                    <option value="JP">JP</option>
+                </select>
+            </div>
+            <!-- Input for Supervisor's Name -->
+            <div class="form-group">
+                <label for="supervisor_name">Supervisor's Name:</label>
+                <input type="text" id="supervisor_name" name="supervisor_name" required>
+            </div>
+            <!-- Input for Jury's Name -->
+            <div class="form-group">
+                <label for="jury_name">Jury's Name:</label>
+                <input type="text" id="jury_name" name="jury_name" required>
+            </div>
+            <!-- Input for Date -->
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <!-- Checkbox for Normal Input and Output -->
+            <div class="form-group">
+                <label for="normal_input_output">Normal Input and Output:</label>
+                <input type="checkbox" id="normal_input_output" name="normal_input_output">
+            </div>
+            <!-- Table to capture evaluation criteria and marks -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Evaluation Criteria</th>
+                        <th>Full Marks</th>
+                        <th>Given Marks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Evaluation for Novelty and Design -->
+                    <tr>
+                        <td>Novelty and Design</td>
+                        <td>25%</td>
+                        <td>
+                            <input type="radio" name="novelty_design" value="1" required> 1
+                            <input type="radio" name="novelty_design" value="2" required> 2
+                            <input type="radio" name="novelty_design" value="3" required> 3
+                            <input type="radio" name="novelty_design" value="4" required> 4
+                            <input type="radio" name="novelty_design" value="5" required> 5
+                        </td>
+                    </tr>
+                    <!-- Evaluation for Practicality and Usability -->
+                    <tr>
+                        <td>Practicality and Usability</td>
+                        <td>25%</td>
+                        <td>
+                            <input type="radio" name="practicality_usability" value="1" required> 1
+                            <input type="radio" name="practicality_usability" value="2" required> 2
+                            <input type="radio" name="practicality_usability" value="3" required> 3
+                            <input type="radio" name="practicality_usability" value="4" required> 4
+                            <input type="radio" name="practicality_usability" value="5" required> 5
+                        </td>
+                    </tr>
+                    <!-- Evaluation for Impact -->
+                    <tr>
+                        <td>Impact</td>
+                        <td>20%</td>
+                        <td>
+                            <input type="radio" name="impact" value="1" required> 1
+                            <input type="radio" name="impact" value="2" required> 2
+                            <input type="radio" name="impact" value="3" required> 3
+                            <input type="radio" name="impact" value="4" required> 4
+                            <input type="radio" name="impact" value="5" required> 5
+                        </td>
+                    </tr>
+                    <!-- Evaluation for Presentation -->
+                    <tr>
+                        <td>Presentation</td>
+                        <td>15%</td>
+                        <td>
+                            <input type="radio" name="presentation" value="1" required> 1
+                            <input type="radio" name="presentation" value="2" required> 2
+                            <input type="radio" name="presentation" value="3" required> 3
+                            <input type="radio" name="presentation" value="4" required> 4
+                            <input type="radio" name="presentation" value="5" required> 5
+                        </td>
+                    </tr>
+                    <!-- Evaluation for Video -->
+                    <tr>
+                        <td>Video</td>
+                        <td>15%</td>
+                        <td>
+                            <input type="radio" name="video" value="1" required> 1
+                            <input type="radio" name="video" value="2" required> 2
+                            <input type="radio" name="video" value="3" required> 3
+                            <input type="radio" name="video" value="4" required> 4
+                            <input type="radio" name="video" value="5" required> 5
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- Submit button for the form -->
+            <div class="form-buttons">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
 
@@ -352,292 +322,142 @@ function toggleQuantity(quantityId, checkbox) {
 
 
 
-
-// Two
+// result.php
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PSP PC-Shop Buying Form</title>
-
-// style
-<style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-  background-color: #f2f2f2;
-}
-
-header {
-  text-align: center;
-  background-color: #ff69b4;
-  color: #fff;
-  padding: 20px 0;
-  margin-bottom: 20px;
-}
-
-form {
-  max-width: 100%;
-  margin: 0 auto;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="email"],
-textarea {
-  width: calc(100% - 12px);
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-input[type="number"] {
-  width: 80px;
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-input[type="radio"],
-input[type="checkbox"] {
-  margin-right: 5px;
-}
-
-button[type="submit"],
-button[type="reset"],
-button[id="btnback"]{
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button[type="submit"]:hover,
-button[type="reset"]:hover,
-button[id="btnback"]:hover {
-  background-color: #45a049;
-}
-
-p {
-  font-size: 0.9em;
-  color: #888;
-}
-
-table, th, td {
-  border: 1px solid rgb(198, 198, 198);
-  border-collapse: collapse;
-}
-
-td{
-  height: 50px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-
-.product-image {
-  width: 100px;
-  height: auto;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Year Project Evaluation Details</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="container">
+        <header>
+            <img src="logo.png" alt="Politeknik Malaysia Seberang Perai">
+            <h1>Final Year Project Evaluation Details</h1>
+        </header>
 
-<header>
-  <h1>Welcome to PSP PC-SHOP</h1>
-</header>
+        <?php
+        // Function to sanitize input data to prevent XSS and SQL Injection
+        function sanitizeInput($data) {
+            return htmlspecialchars(stripslashes(trim($data)));
+        }
 
-<?php
-// Retrieve customer details, quantity and payment method. Example as follow:
-$fullname = $_POST["fullname"];
-$email = $_POST["email"];
-$phone = $_POST["phone"];
-$address = $_POST["address"];
-//change string input date to time
-$date = strtotime($_POST["date"]);
+        // Check if the form is submitted
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Get the sanitized input values
+            $project_id = sanitizeInput($_POST['project_id']);
+            $project_title = sanitizeInput($_POST['project_title']);
+            $department = sanitizeInput($_POST['department']);
+            $supervisor_name = sanitizeInput($_POST['supervisor_name']);
+            $jury_name = sanitizeInput($_POST['jury_name']);
+            $date = sanitizeInput($_POST['date']);
+            $novelty_design = sanitizeInput($_POST['novelty_design']);
+            $practicality_usability = sanitizeInput($_POST['practicality_usability']);
+            $impact = sanitizeInput($_POST['impact']);
+            $presentation = sanitizeInput($_POST['presentation']);
+            $video = sanitizeInput($_POST['video']);
+            // Check if the checkbox for Normal Input and Output is checked
+            $normal_input_output = isset($_POST['normal_input_output']) ? 'Yes' : 'No';
 
-//a simple way to handle a default value if the checkbox is nott checked. Example as follow:
-$item1 = $_POST["item1"] ?? 0;
-$item2 = $_POST["item2"] ?? 0;
-$item3 = $_POST["item3"] ?? 0;
-$item4 = $_POST["item4"] ?? 0;
-$item5 = $_POST["item5"] ?? 0;
-$item6 = $_POST["item6"] ?? 0;
+            // Calculate total score
+            $total_score = ($novelty_design * 5) + 
+                           ($practicality_usability * 5) + 
+                           ($impact * 4) + 
+                           ($presentation * 3) + 
+                           ($video * 3);
 
-// Calculate sales for each product based on inclusion status. Example as follow:
-$sales1 = $item1 ? $_POST["quantity1"] * 3999 : 0;
-$sales2 = $item2 ? $_POST["quantity2"] * 2599 : 0;
-$sales3 = $item3 ? $_POST["quantity3"] * 239 : 0;
-$sales4 = $item4 ? $_POST["quantity4"] * 25.99 : 0;
-$sales5 = $item5 ? $_POST["quantity5"] * 124 : 0;
-$sales6 = $item6 ? $_POST["quantity6"] * 339 : 0;
+            // Determine pass or fail status
+            $status = $total_score >= 50 ? 'Pass' : 'Fail';
+        ?>
 
-//Calculate total sales
-$totalsales = $sales1 + $sales2 + $sales3 + $sales4 + $sales5 + $sales6;
+        <!-- Display the form data and calculated results -->
+        <form>
+            <div class="form-group">
+                <label for="project_id">Project ID:</label>
+                <input type="text" id="project_id" name="project_id" value="<?php echo $project_id; ?>" readonly>
+            </div>
+            <div class="form-group">
+                <label for="project_title">Project Title:</label>
+                <input type="text" id="project_title" name="project_title" value="<?php echo $project_title; ?>" readonly>
+            </div>
+            <div class="form-group">
+                <label for="department">Department:</label>
+                <input type="text" id="department" name="department" value="<?php echo $department; ?>" readonly>
+            </div>
+            <div class="form-group">
+                <label for="supervisor_name">Supervisor's Name:</label>
+                <input type="text" id="supervisor_name" name="supervisor_name" value="<?php echo $supervisor_name; ?>" readonly>
+            </div>
+            <div class="form-group">
+                <label for="jury_name">Jury's Name:</label>
+                <input type="text" id="jury_name" name="jury_name" value="<?php echo $jury_name; ?>" readonly>
+            </div>
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="text" id="date" name="date" value="<?php echo $date; ?>" readonly>
+            </div>
+            <div class="form-group">
+                <label for="normal_input_output">Normal Input and Output:</label>
+                <input type="text" id="normal_input_output" name="normal_input_output" value="<?php echo $normal_input_output; ?>" readonly>
+            </div>
+            <!-- Display the evaluation criteria and given marks -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Evaluation Criteria</th>
+                        <th>Full Marks</th>
+                        <th>Given Marks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Novelty and Design</td>
+                        <td>25%</td>
+                        <td><?php echo $novelty_design; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Practicality and Usability</td>
+                        <td>25%</td>
+                        <td><?php echo $practicality_usability; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Impact</td>
+                        <td>20%</td>
+                        <td><?php echo $impact; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Presentation</td>
+                        <td>15%</td>
+                        <td><?php echo $presentation; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Video</td>
+                        <td>15%</td>
+                        <td><?php echo $video; ?></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- Display the total marks and status -->
+            <div class="result">
+                <p>Total Marks: <?php echo $total_score; ?>%</p>
+                <p>Status: <?php echo $status; ?></p>
+            </div>
+            <!-- Buttons to save/print the form and go back to the index page -->
+            <div class="form-buttons">
+                <button type="button" onclick="window.location.href='index.php';">Back</button>
+                <button type="button" onclick="window.print()">Save</button>
+            </div>
+        </form>
 
-//if  else condition to give 5% discount when total sales above RM2000
-if ($totalsales > 2000){
-  $discount = $totalsales * 0.05;
-}
-else {
-  $discount = 0;
-}
-
-//Calculate 6% tax that will charge to amount total sales and after discount
-$tax = ($totalsales - $discount) * 0.06;
-
-//calculate amount to be paid
-$amount = $totalsales - $discount + $tax;
-?>
-
-<form id="myForm" method="post">
-  <div>
-    <table width="95%" border="1" align="center" style="background-color: #f7f7f7;">
-        <tr>
-            <th width="10%" align="left">Full Name: </th>
-            <td><input type="text" name="fullname" style="width: 550px;" value="<?php echo $fullname; ?>" readonly></td>
-        </tr>
-        <tr>
-            <th  align="left">Email: </th>
-            <td><input type="email" name="email" style="width: 550px;" value="<?php echo $email; ?>" readonly></td>
-        </tr>
-        <tr>
-            <th  align="left">Phone Number: </th>
-            <td><input type="text" name="phone" style="width: 550px;" value="<?php echo $phone; ?>" readonly></td>
-        </tr>
-        <tr>
-            <th  align="left">Address: </th>
-            <td><input type="textarea" name="address" style="width: 550px; height: 150px;" value="<?php echo $address; ?>" readonly></td>
-        </tr>
-        <tr>
-            <th  align="left">Date: </th>
-            <td><input type="text" name="date" style="width: 150px;" value="<?php echo date('d-m-Y', $date); ?>" readonly></td>
-        </tr>
-    </table>
-  </div>
-        
-  <div>
-    <table width="95%" border="1" align="center" style="background-color: #f7f7f7;">
-      <tr style="background-color: #ff69b4; color: white;">
-        <th colspan="4" height="50px">Product Details</th>
-
-    </tr>
-        <tr style="background-color: #ff69b4; color: white;">
-            <th>Item Name</th>
-            <th>Unit Price</th>
-            <th>Quantity</th>
-            <th>Item Total</th>
-        </tr>
-        <tr>
-            <td>HP Pavilion x360 14 inch 2-in-1 Laptop 14-ek1039TU Silver </td>
-            <td align="center">RM 3,999.00</td>
-            <td align="center"><?php echo $_POST["quantity1"]; ?></td>
-            <td align="center">RM <?php echo number_format($sales1, 2); ?></td>
-        </tr>
-        <tr>
-            <td>HP 24-inc All-in-One Desktop PC</td>
-            <td align="center">RM 2,599.00</td>
-            <td align="center"><?php echo $_POST["quantity2"]; ?></td>
-            <td align="center">RM <?php echo number_format($sales2, 2); ?></td>
-        </tr>
-        <tr>
-            <td>Western Digital My Passport 1TB USB 3.0 External Hard Drives New Design</td>
-            <td align="center">RM 239.00</td>
-            <td align="center"><?php echo $_POST["quantity3"]; ?></td>
-            <td align="center">RM <?php echo number_format($sales3, 2); ?></td>
-        </tr>
-        <tr>
-            <td>2.4GHz Mini Wireless Optical Game Mouse / USB Receiver</td>
-            <td align="center">RM 25.99 </td>
-            <td align="center"><?php echo $_POST["quantity4"]; ?></td>
-            <td align="center">RM <?php echo number_format($sales4, 2); ?></td>
-        </tr>
-        <tr>
-            <td>Anti Thief Backpack Business Fits for 15.6 inch Laptop USB Charging Water Repellent</td>
-            <td align="center">RM 124.00</td>
-            <td align="center"><?php echo $_POST["quantity5"]; ?></td>
-            <td align="center">RM <?php echo number_format($sales5, 2); ?></td>
-        </tr>
-        <tr>
-            <td>Razer BlackShark V2 Multi-Platform Wired E-Sports Headset</td>
-            <td align="center">RM 339.00</td>
-            <td align="center"><?php echo $_POST["quantity6"]; ?></td>
-            <td align="center">RM <?php echo number_format($sales6, 2); ?></td>
-        </tr>
-    </table>
-  </div>
-
-
-  <table width="95%" border="1" align="center" style="background-color: #f7f7f7;">
-      <tr style="background-color: #ff69b4; color: white;">
-        <th colspan="2" height="50px">Bill</th>
-      </tr>
-      <tr>
-        <td>Payment Method</td>
-        <td align="center"><?php echo $_POST["paymentMethod"]; ?></td>
-      </tr>
-      <tr>
-        <td>Total Sales</td>
-        <td align="center">RM <?php echo number_format($totalsales, 2); ?></td>
-      </tr>
-      <tr>
-        <td>Discount (5% if total sales above RM 2000)</td>
-        <td align="center">RM <?php echo number_format($discount, 2); ?></td>
-      </tr>
-      <tr>
-        <td>6% SST Charged</td>
-        <td align="center">RM <?php echo number_format($tax, 2); ?></td>
-      </tr>
-      <tr>
-        <td align="right">TOTAL</td>
-        <td align="center" style="background-color: #ff69b4;">RM <?php echo number_format($amount, 2); ?></td>
-      </tr>
-  </table>
-
-  <br>
-
-  <div class="btnback" align="center">
-    <input type="button" onclick="history.back()" value="Back">
-  </div>
-</form>
-
-<script>
-function toggleQuantity(quantityId, checkbox) {
-  var quantityInput = document.getElementsByName(quantityId)[0];
-  var includeHiddenInput = document.getElementsByName('include' + quantityId)[0];
-
-  if (!checkbox.checked) {
-    quantityInput.value = 0;
-    includeHiddenInput.value = 0;
-  } else {
-    quantityInput.value = 1;
-    includeHiddenInput.value = 1;
-  }
-
-  quantityInput.disabled = !checkbox.checked;
-  if (checkbox.checked) {
-    quantityInput.removeAttribute('required');
-  } else {
-    quantityInput.setAttribute('required', 'required');
-  }
-}
-</script>
-
+        <?php
+        } else {
+            // Message to display if no data is received
+            echo "<p>No data received. Please submit the form first.</p>";
+        }
+        ?>
+    </div>
 </body>
 </html>
